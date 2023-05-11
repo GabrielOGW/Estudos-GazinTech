@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Formulário</title>
+  </head>
+
+  <body>
+    <h3>Login</h3>
+    <form>
+      <label>Usuário:</label> <br />
+      <input cols="15" rows="1" /> <br />
+      <label>Senha:</label> <br />
+      <input type="password" cols="15" rows="1" />
+      <br />
+      <br />
+      <input type="submit" value="acessar" />
+    </form>
+
+    <h3>cadastre-se</h3>
+    <form>
+      <label>Usuário:</label> <br />
+      <input type="text" /> <br />
+      <label>Senha:</label> <br />
+      <input type="password" /> <br />
+      <label>Data de Nascimento:</label> <br />
+      <input type="date" /> <br />
+      <label>Sexo:</label> <br />
+      <input type="radio" name="sexo" value="M" />Masculino <br />
+      <input type="radio" name="sexo" value="F" />Feminino <br /> 
+      <label>Termos e politicas do site:</label> <br />
+      Estado<br />
+      <select>
+        <option value="SP">São Paulo</option>
+        <option value="RJ">Rio de Janeiro</option>
+        <option value="PR">Paraná</option>
+        <option value="SC">Santa Catarina</option>
+      </select>
+      <br />
+      <input type="checkbox" name="promo" value="negative" /> Eu li e concordo
+      com os <em>Termos</em> do site <br />
+      <input type="checkbox" name="promo" value="positive" /> Eu li e concordo
+      com as <em>Politicas</em> do site <br />
+      <br />
+      <input type="submit" value="finalizar cadastro" />
+    </form>
+  </body>
+</html>
