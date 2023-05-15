@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Textos e Formatações</title>
+    <style>
+      /*Formatações de texto:
+        px -> tamanho fixo
+        % ->tamanho relativo
+        em -> tamanho relativo ao conteiner pai*/
+
+      div {
+        font-size: 16px;
+      }
+      .texto {
+        font-size: 2em;
+      }
+
+      /*Algumas formatações de texto e como executa-las de maneira diferente:*/
+      .negrito {
+        /*font weight vai de 100 a 900, bold e normal que aplicam o nregrito ao texto*/
+        font-weight: 900;
+      }
+
+      .italico {
+        /*Aqui podemos adicionar o estilo italico ao texto*/
+        font-style: italic;
+      }
+
+      .formatacao {
+        /*Aqui podemos colocar decorações como linhas entre o texto, sobre e abaixo*/
+        text-decoration: line-through;
+        text-decoration: overline;
+        text-decoration: underline;
+      }
+
+      .conteudoFinal {
+        /*colocando apenas o font, podemos colocar todas informações inseridas previamente, em um unico local*/
+        font: bold 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div>Conteudo 1 Lorem, ipsum dolor.</div>
+    <div class="texto">conteudo 2 Lorem ipsum dolor sit amet.</div>
+    <p class="negrito">conteudo 3</p>
+    <p class="italico">conteudo 4</p>
+    <p class="formatacao">conteudo 5</p> 
+    <p class="conteudoFinal">conteudo final</p>
+  </body>
+</html>

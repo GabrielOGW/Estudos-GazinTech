@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Divs e Span</title>
+    <style type="text/css">
+      #topo {
+        background-color: deepskyblue;
+      }
+
+      #conteudo {
+        background: red;
+      }
+
+      #assinatura {
+        background-color: blueviolet;
+      }
+
+      #rodape {
+        background-color: greenyellow;
+      }
+
+      .produto {
+        background-color: gray;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="topo">
+      <img src="./imgs/download.png" width="200" />
+      <ul>
+        <li>Home</li>
+        <li>Produtos</li>
+        <li>Contato</li>
+      </ul>
+    </div>
+
+    <div id="conteudo">
+      <div class="produto">Produto 1</div>
+
+      <div class="produto">Produto 2</div>
+
+      <div class="produto">Produto 3</div>
+    </div>
+
+    <div id="rodape">Todos os direitos reservados</div>
+
+    <!--Divs são elementos do tipo block, que preenchem 100% da tela durante toda apresentação dele-->
+    <!--já Span é um elemento Inline, que edita a linha alterada, e não um bloco.-->
+
+    <span id="assinatura"> Gabriel </span>
+  </body>
+</html>
