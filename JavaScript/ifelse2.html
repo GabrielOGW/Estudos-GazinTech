@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Aulas JavaScript</title>
+    <script>
+      var prova1 = parseFloat(prompt("Informe a nota da prova 1:"));
+      var prova2 = parseFloat(prompt("Informe a nota da prova 2:"));
+      var prova3 = parseFloat(prompt("Informe a nota da prova 3:"));
+      var faltas = parseInt(prompt("Digite a quantidade de faltas:"));
+
+      var media_notas = (prova1 + prova2 + prova3) / 3;
+      var media = 60;
+
+      var faltas_maximas = 15;
+
+      if (media_notas >= media && faltas < faltas_maximas) {
+        document.write(`Aprovado com média: ${media_notas.toFixed(2)}`);
+      } else {
+        document.write(`Reprovado com média: ${media_notas.toFixed(2)}`);
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

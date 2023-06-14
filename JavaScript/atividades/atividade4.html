@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Controle de Eventos em Input</title>
+    <style>
+      .input-yellow {
+        background-color: yellow;
+      }
+
+      .input-red {
+        background-color: red;
+      }
+
+      .input-green {
+        background-color: green;
+      }
+    </style>
+    <script>
+      window.addEventListener("DOMContentLoaded", function () {
+        var input = document.getElementById("myInput");
+
+        input.addEventListener("focus", function () {
+          input.classList.add("input-yellow");
+        });
+
+        input.addEventListener("blur", function () {
+          var valor = input.value;
+
+          if (valor.length < 3) {
+            input.classList.remove("input-yellow");
+            input.classList.remove("input-green");
+            input.classList.add("input-red");
+          } else {
+            input.classList.remove("input-yellow");
+            input.classList.remove("input-red");
+            input.classList.add("input-green");
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <input type="text" id="myInput" />
+  </body>
+</html>

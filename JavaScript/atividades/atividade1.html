@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Faixa Etária</title>
+    <script>
+      function verificarFaixaEtaria() {
+        var idade = parseInt(prompt("Informe sua idade:"));
+
+        if (idade >= 0 && idade < 15) {
+          alert("Criança");
+        } else if (idade >= 15 && idade < 30) {
+          alert("Jovem");
+        } else if (idade >= 30 && idade < 60) {
+          alert("Adulto");
+        } else if (idade >= 60) {
+          alert("Idoso");
+        } else {
+          alert("Idade inválida");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="verificarFaixaEtaria()">Verificar Faixa Etária</button>
+  </body>
+</html>

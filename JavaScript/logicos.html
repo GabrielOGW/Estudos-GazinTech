@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Aulas JavaScript</title>
+    <script>
+      var prova1 = parseFloat(prompt("Informe a nota da prova 1:"));
+      var prova2 = parseFloat(prompt("Informe a nota da prova 2:"));
+      var prova3 = parseFloat(prompt("Informe a nota da prova 3:"));
+
+      var media = 3 / (prova1 + prova2 + prova3);
+
+      if (media >= 60) {
+        document.write(
+          `Sua média foi: ${media.toFixed(2)}, você está aprovado!`
+        );
+      } else {
+        document.write(
+          `Sua média foi: ${media.toFixed(2)}, você está reprovado :(`
+        );
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Aulas JavaScript</title>
+    <script>
+      function calcAreaTerreno() {
+        var largura = parseFloat(prompt("Informe a Largura do terreno:"));
+        var comprimento = parseFloat(
+          prompt("Informe o Comprimento do terreno:")
+        );
+
+        var area = largura * comprimento;
+
+        document.write("area: " + area);
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="calcAreaTerreno()">Calcula Area do terreno</button>
+  </body>
+</html>

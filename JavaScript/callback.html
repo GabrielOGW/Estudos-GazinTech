@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Aulas JavaScript</title>
+    <script>
+      function exibirArtigo(id, callbackSucesso, callbackErro) {
+        if (true) {
+          callbackSucesso(
+            "Funções de callback em JS",
+            "funções de callback são muito utilizadas.."
+          );
+        } else {
+          callbackErro("erro ao recuperar dados");
+        }
+      }
+
+      var callbackSucesso = (titulo, descricao) => {
+        document.write("<h2>" + titulo + "</h2>");
+        document.write("<hr />");
+        document.write("<p>" + descricao + "</p>");
+      };
+      var callbackErro = function (erro) {
+        document.write("<h2>" + descricao + "</h2>");
+      };
+
+      exibirArtigo(1, callbackSucesso, callbackErro);
+    </script>
+  </head>
+</html>

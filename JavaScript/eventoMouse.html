@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Eventos de Mouse</title>
+    <style>
+      .highlight {
+        background-color: yellow;
+      }
+    </style>
+    <script>
+      window.addEventListener("DOMContentLoaded", function () {
+        var button = document.getElementById("myButton");
+
+        button.addEventListener("mouseover", function () {
+          button.classList.add("highlight");
+        });
+
+        button.addEventListener("mouseout", function () {
+          button.classList.remove("highlight");
+        });
+
+        button.addEventListener("click", function () {
+          alert("Botão clicado!");
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <button id="myButton">Botão</button>
+  </body>
+</html>

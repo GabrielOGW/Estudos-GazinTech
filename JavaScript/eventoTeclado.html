@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Eventos de Teclado</title>
+    <script>
+      function handleKeyPress(event) {
+        if (event.key === "Enter") {
+          alert("Valor digitado: " + event.target.value);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <input type="text" onkeypress="handleKeyPress(event)" />
+  </body>
+</html>

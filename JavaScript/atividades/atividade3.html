@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cálculo Aritmético</title>
+    <script>
+      function calcular(num1, num2, operacao) {
+        if (operacao === "soma") {
+          return num1 + num2;
+        } else if (operacao === "subtração") {
+          return num1 - num2;
+        }
+      }
+
+      function realizarCalculo() {
+        var num1 = parseFloat(prompt("Digite o primeiro número:"));
+        var operacao = prompt("Digite a operação (soma ou subtração):");
+        var num2 = parseFloat(prompt("Digite o segundo número:"));
+
+        var resultado = calcular(num1, num2, operacao);
+
+        if (isNaN(resultado)) {
+          alert("Operação inválida! Por favor, tente novamente.");
+        } else {
+          alert("O resultado é: " + resultado + ".");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="realizarCalculo()">Realizar Cálculo</button>
+  </body>
+</html>

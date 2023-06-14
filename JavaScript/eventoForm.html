@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Eventos de Formulários</title>
+    <script>
+      function handleSubmit(event) {
+        event.preventDefault();
+        var input = document.getElementById("myInput");
+        if (input.value === "") {
+          alert("O campo de texto está vazio!");
+        } else {
+          alert("Valor digitado: " + input.value);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <form onsubmit="handleSubmit(event)">
+      <input type="text" id="myInput" />
+      <button type="submit">Enviar</button>
+    </form>
+  </body>
+</html>

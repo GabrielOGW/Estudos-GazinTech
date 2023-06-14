@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Manipulação do DOM</title>
+    <style>
+      .highlight {
+        color: red;
+      }
+      .selected {
+        background-color: yellow;
+      }
+    </style>
+    <script>
+      function selectElement() {
+        var element = document.getElementById("myElement");
+        if (element.classList.contains("selected")) {
+          element.classList.remove("selected");
+        } else {
+          element.classList.add("selected");
+        }
+      }
+
+      function changeValue() {
+        var input = document.getElementById("myInput");
+        if (input.value === "Novo valor") {
+          input.value = "Dado original";
+        } else {
+          input.value = "Novo valor";
+        }
+      }
+
+      function changeStyle() {
+        var element = document.getElementById("myElement");
+        if (element.style.fontSize === "24px") {
+          element.style.fontSize = "";
+          element.style.color = "";
+        } else {
+          element.style.fontSize = "24px";
+          element.style.color = "blue";
+        }
+      }
+
+      function toggleClass() {
+        var element = document.getElementById("myElement");
+        element.classList.toggle("highlight");
+      }
+    </script>
+  </head>
+  <body>
+    <div id="myElement">Exemplo de manipulação do DOM</div>
+
+    <button onclick="selectElement()">Selecionar Elemento</button>
+    <button onclick="changeValue()">Alterar Valor do Input</button>
+    <button onclick="changeStyle()">Alterar Estilo do Elemento</button>
+    <button onclick="toggleClass()">Alternar Classe do Elemento</button>
+
+    <br /><br />
+
+    <input type="text" id="myInput" value="Dado original" />
+  </body>
+</html>
