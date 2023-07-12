@@ -1,0 +1,80 @@
+body {
+  background-color: #5e7684;
+}
+
+.table {
+  background-color: transparent;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table thead th {
+  background-color: #1d93d6;
+  color: #ffffff;
+}
+
+.table tbody td {
+  background-color: #89a8ba;
+  color: #000000;
+}
+
+.table thead th,
+.table tbody td {
+  padding: 10px;
+  border-bottom: none;
+}
+
+.table tbody tr {
+  margin-bottom: 10px;
+}
+
+.table thead th:first-child,
+.table tbody td:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.table thead th:last-child,
+.table tbody td:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.btn-primary {
+  background-color: #1d93d6;
+  border-color: #1d93d6;
+}
+
+.btn-primary:hover {
+  background-color: #1a7ea1;
+  border-color: #1a7ea1;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #bd2d3a;
+  border-color: #bd2d3a;
+}
+
+.btn-outline-primary {
+  color: #1d93d6;
+  border-color: #1d93d6;
+}
+
+.btn-outline-primary:hover {
+  color: #fff;
+  background-color: #1d93d6;
+  border-color: #1d93d6;
+}
+
+.delete-message {
+  background-color: #326886;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
