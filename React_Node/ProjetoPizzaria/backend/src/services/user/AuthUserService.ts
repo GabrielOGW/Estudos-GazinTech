@@ -16,12 +16,13 @@ export default class AuthUserService {
     });
 
     if (!user) {
-      throw new Error("Usuário/Senha incorreto(s)");
+      throw new Error("User/password incorrect");
     }
 
     const passwordMatch = await compare(password, user.password);
+
     if (!passwordMatch) {
-      throw new Error("Usuário/Senha incorreto(s)");
+      throw new Error("User/password incorrect");
     }
 
     const token = sign(
@@ -36,6 +37,11 @@ export default class AuthUserService {
       }
     );
 
-    return { id: user.id, name: user.name, email: user.email, token: token };
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      token: token,
+    };
   }
 }

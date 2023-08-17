@@ -10,7 +10,7 @@ interface UserRequest {
 export default class CreateUserService {
   async execute({ name, email, password }: UserRequest) {
     if (!email) {
-      throw new Error("Email incorreto");
+      throw new Error("Email incorrect");
     }
 
     const userAlreadyExists = await prismaClient.user.findFirst({
@@ -20,7 +20,7 @@ export default class CreateUserService {
     });
 
     if (userAlreadyExists) {
-      throw new Error("Usuario já existente");
+      throw new Error("User already exists");
     }
 
     const passwordHash = await hash(password, 8);
