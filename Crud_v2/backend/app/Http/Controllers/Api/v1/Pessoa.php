@@ -13,7 +13,7 @@ class Pessoa extends Controller
 {
     public function index()
     {
-        return new PessoaCollection(PessoaModel::paginate(1));
+        return new PessoaCollection(PessoaModel::paginate());
     }
 
     public function show(PessoaModel $pessoa)
