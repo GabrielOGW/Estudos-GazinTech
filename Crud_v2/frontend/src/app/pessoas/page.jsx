@@ -1,13 +1,34 @@
 'use client'
-import { useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import { PessoaContext } from "../services/context/pessoaContext";
+import DeleteAlert from "./deleteAlert";
 
 export default function pessoas() {
-  const { pessoas, getPessoas } = useContext(PessoaContext)
+  const { pessoas, getPessoas } = useContext(PessoaContext);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
   useEffect(() => {
-    getPessoas()
-  }, [])
+    getPessoas();
+  }, []);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const pessoasToShow = pessoas.slice(startIndex, endIndex);
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const goToNextPage = () => {
+    const totalPages = Math.ceil(pessoas.length / itemsPerPage);
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   return (
     <>
@@ -45,7 +66,7 @@ export default function pessoas() {
             </tr>
           </thead>
           <tbody>
-            {pessoas.map((pessoa) => {
+            {pessoasToShow.map((pessoa) => {
               return (
                 <tr key={pessoa.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <td className="w-4 p-4">
@@ -70,36 +91,46 @@ export default function pessoas() {
                     {pessoa.cargo}
                   </td>
                   <td className="flex items-center px-6 py-4 space-x-3">
-                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
-                    <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline">Remover</a>
+                    <Link href={`/pessoas/${pessoa.id}/editar`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</Link>
+                    <DeleteAlert />
+                    {/* <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline">Remover</a> */}
                   </td>
                 </tr>)
             })}
           </tbody>
         </table>
-        <nav className="flex items-center justify-between pt-4" aria-label="Table navigation">
-          <span className="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span className="font-semibold text-gray-900 dark:text-white">1-10</span> of <span className="font-semibold text-gray-900 dark:text-white">1000</span></span>
+        <nav
+          className="flex items-center justify-between pt-4"
+          aria-label="Table navigation"
+        >
+          <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+            Apresentando{" "}
+            <span className="font-semibold text-gray-900 dark:text-white">
+              {startIndex + 1}-{endIndex > pessoas.length ? pessoas.length : endIndex}
+            </span>{" "}
+            de{" "}
+            <span className="font-semibold text-gray-900 dark:text-white">
+              {pessoas.length}
+            </span>
+          </span>
           <ul className="inline-flex -space-x-px text-sm h-8">
             <li>
-              <a href="#" className="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+              <a
+                href="#"
+                onClick={goToPreviousPage}
+                className="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                Anterior
+              </a>
             </li>
             <li>
-              <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-            </li>
-            <li>
-              <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-            </li>
-            <li>
-              <a href="#" aria-current="page" className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-            </li>
-            <li>
-              <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-            </li>
-            <li>
-              <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-            </li>
-            <li>
-              <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+              <a
+                href="#"
+                onClick={goToNextPage}
+                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                Proximo
+              </a>
             </li>
           </ul>
         </nav>

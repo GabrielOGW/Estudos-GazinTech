@@ -1,17 +1,22 @@
 'use client'
-import { useContext } from 'react';
-import Link from 'next/link';
-import { PessoaContext } from '@/app/services/context/pessoaContext';
+import { useContext, useEffect } from 'react'
+import Link from 'next/link'
+import { PessoaContext } from '@/app/services/context/pessoaContext'
+import { useParams } from 'next/navigation'
 
-export default function Criar() {
-  const { formData = {}, handleChange, salvarPessoa, errors = {} } = useContext(PessoaContext);
+export default function editarPessoa() {
+  const { formData = {}, handleChange, errors = {}, getPessoa, atualizarPessoa } = useContext(PessoaContext);
+  let params = useParams()
 
+  useEffect(() => {
+    getPessoa(params.pessoaId)
+  }, [])
 
   return (
     <div className="mt-12">
       <form
         className="max-w-md mx-auto p-4 bg-white shadow-md rounded-sm"
-        onSubmit={salvarPessoa}
+        onSubmit={atualizarPessoa}
       >
         <div className="space-y-6">
           <div className="mb-4">
@@ -85,7 +90,7 @@ export default function Criar() {
         </div>
         <div className="my-4 flex justify-between">
           <button className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md" type="submit">
-            Criar
+            Atualizar
           </button>
           <Link
             href="../pessoas"
