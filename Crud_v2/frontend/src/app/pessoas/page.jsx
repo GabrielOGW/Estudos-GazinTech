@@ -4,10 +4,8 @@ import Link from "next/link";
 import { PessoaContext } from "../services/context/pessoaContext";
 
 export default function pessoas() {
-  const { pessoas, getPessoas } = useContext(PessoaContext);
+  const { pessoas, getPessoas, deletarPessoasSelecionadas, toggleSelectAll, toggleSelect, selectedIds, selectAll } = useContext(PessoaContext);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectAll, setSelectAll] = useState(false);
-  const [selectedIds, setSelectedIds] = useState([]);
   const itemsPerPage = 5;
 
   useEffect(() => {
@@ -31,30 +29,12 @@ export default function pessoas() {
     }
   };
 
-  const toggleSelectAll = () => {
-    if (selectAll) {
-      setSelectedIds([]);
-    } else {
-      const allIds = pessoas.map((pessoa) => pessoa.id);
-      setSelectedIds(allIds);
-    }
-    setSelectAll(!selectAll);
-  };
-
-  const toggleSelect = (id) => {
-    if (selectedIds.includes(id)) {
-      setSelectedIds(selectedIds.filter((selectedId) => selectedId !== id));
-    } else {
-      setSelectedIds([...selectedIds, id]);
-    }
-  };
-
   return (
     <>
       <div className="flex justify-end m-2 p-2">
         {selectedIds.length > 0 && (
           <button
-            onClick={() => handleDeleteSelected(selectedIds)}
+            onClick={() => deletarPessoasSelecionadas(selectedIds)}
             className="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md ml-2"
           >
             Excluir Selecionados
@@ -106,7 +86,7 @@ export default function pessoas() {
                 <tr
                   key={pessoa.id}
                   className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 ${selectedIds.includes(pessoa.id) ? "bg-gray-200" : ""
-                    }`}
+                    } cursor-pointer`}
                 >
                   <td className="w-4 p-4">
                     <div className="flex items-center">

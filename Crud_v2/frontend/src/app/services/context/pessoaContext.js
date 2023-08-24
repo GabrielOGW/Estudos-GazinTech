@@ -16,7 +16,27 @@ export const PessoaProvider = ({ children }) => {
   const [pessoas, setPessoas] = useState([]);
   const [pessoa, setPessoa] = useState([]);
   const [errors, setErrors] = useState({});
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
   const router = useRouter();
+
+  const toggleSelectAll = () => {
+    if (selectAll) {
+      setSelectedIds([]);
+    } else {
+      const allIds = pessoas.map((pessoa) => pessoa.id);
+      setSelectedIds(allIds);
+    }
+    setSelectAll(!selectAll);
+  };
+
+  const toggleSelect = (id) => {
+    if (selectedIds.includes(id)) {
+      setSelectedIds(selectedIds.filter((selectedId) => selectedId !== id));
+    } else {
+      setSelectedIds([...selectedIds, id]);
+    }
+  };
 
   function calcularIdade(data_nascimento) {
     const hoje = new Date();
@@ -45,7 +65,7 @@ export const PessoaProvider = ({ children }) => {
     try {
       const apiPessoas = await api.get("/pessoas");
       setPessoas(apiPessoas.data.data);
-      setFormData({})
+      setFormData({});
     } catch (error) {
       console.error("Erro ao buscar pessoas:", error);
     }
@@ -115,13 +135,28 @@ export const PessoaProvider = ({ children }) => {
     e.preventDefault();
     try {
       await api.delete(`/pessoas/` + pessoa.id);
-      console.log(pessoa.id);
       getPessoas();
       router.push("/pessoas");
       setFormData({});
       setErrors({});
     } catch (error) {
       console.error("Erro ao deletar pessoa:", error);
+    }
+  };
+
+  const deletarPessoasSelecionadas = async () => {
+    try {
+      await Promise.all(
+        selectedIds.map(async (id) => {
+          console.log(id);
+          await api.delete(`/pessoas/` + id);
+        })
+      );
+      setSelectedIds([]);
+      getPessoas();
+      router.push("/pessoas");
+    } catch (error) {
+      console.error("Erro ao excluir pessoas:", error);
     }
   };
 
@@ -132,12 +167,17 @@ export const PessoaProvider = ({ children }) => {
         pessoas,
         formData,
         errors,
+        selectedIds,
+        selectAll,
         getPessoa,
         getPessoas,
         handleChange,
         salvarPessoa,
         atualizarPessoa,
         deletarPessoa,
+        toggleSelectAll,
+        toggleSelect,
+        deletarPessoasSelecionadas,
       }}
     >
       {children}
