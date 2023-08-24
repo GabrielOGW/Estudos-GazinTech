@@ -2,11 +2,12 @@
 import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import { PessoaContext } from "../services/context/pessoaContext";
-import DeleteAlert from "./deleteAlert";
 
 export default function pessoas() {
   const { pessoas, getPessoas } = useContext(PessoaContext);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectAll, setSelectAll] = useState(false);
+  const [selectedIds, setSelectedIds] = useState([]);
   const itemsPerPage = 5;
 
   useEffect(() => {
@@ -30,10 +31,36 @@ export default function pessoas() {
     }
   };
 
+  const toggleSelectAll = () => {
+    if (selectAll) {
+      setSelectedIds([]);
+    } else {
+      const allIds = pessoas.map((pessoa) => pessoa.id);
+      setSelectedIds(allIds);
+    }
+    setSelectAll(!selectAll);
+  };
+
+  const toggleSelect = (id) => {
+    if (selectedIds.includes(id)) {
+      setSelectedIds(selectedIds.filter((selectedId) => selectedId !== id));
+    } else {
+      setSelectedIds([...selectedIds, id]);
+    }
+  };
+
   return (
     <>
       <div className="flex justify-end m-2 p-2">
-        <Link href='/pessoas/criar' className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md">Adicionar nova pessoa</Link>
+        {selectedIds.length > 0 && (
+          <button
+            onClick={() => handleDeleteSelected(selectedIds)}
+            className="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md ml-2"
+          >
+            Excluir Selecionados
+          </button>
+        )}
+        <Link href='/pessoas/criar' className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md ml-2">Adicionar nova pessoa</Link>
       </div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -41,8 +68,16 @@ export default function pessoas() {
             <tr>
               <th scope="col" className="p-4">
                 <div className="flex items-center">
-                  <input id="checkbox-all-search" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                  <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
+                  <input
+                    id="checkbox-all-search"
+                    type="checkbox"
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    checked={selectAll}
+                    onChange={toggleSelectAll}
+                  />
+                  <label htmlFor="checkbox-all-search" className="sr-only">
+                    checkbox
+                  </label>
                 </div>
               </th>
               <th scope="col" className="px-6 py-3">
@@ -68,11 +103,23 @@ export default function pessoas() {
           <tbody>
             {pessoasToShow.map((pessoa) => {
               return (
-                <tr key={pessoa.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <tr
+                  key={pessoa.id}
+                  className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 ${selectedIds.includes(pessoa.id) ? "bg-gray-200" : ""
+                    }`}
+                >
                   <td className="w-4 p-4">
                     <div className="flex items-center">
-                      <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                      <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
+                      <input
+                        id={`checkbox-table-search-${pessoa.id}`}
+                        type="checkbox"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        checked={selectedIds.includes(pessoa.id)}
+                        onChange={() => toggleSelect(pessoa.id)}
+                      />
+                      <label htmlFor={`checkbox-table-search-${pessoa.id}`} className="sr-only">
+                        checkbox
+                      </label>
                     </div>
                   </td>
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -92,8 +139,7 @@ export default function pessoas() {
                   </td>
                   <td className="flex items-center px-6 py-4 space-x-3">
                     <Link href={`/pessoas/${pessoa.id}/editar`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</Link>
-                    <DeleteAlert />
-                    {/* <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline">Remover</a> */}
+                    <Link href={`/pessoas/${pessoa.id}/excluir`} className="font-medium text-red-600 dark:text-red-500 hover:underline">Excluir</Link>
                   </td>
                 </tr>)
             })}

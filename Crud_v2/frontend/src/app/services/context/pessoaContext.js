@@ -2,7 +2,6 @@
 import { createContext, useState } from "react";
 import { api } from "../api/api";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 
 export const PessoaContext = createContext();
 
@@ -46,6 +45,7 @@ export const PessoaProvider = ({ children }) => {
     try {
       const apiPessoas = await api.get("/pessoas");
       setPessoas(apiPessoas.data.data);
+      setFormData({})
     } catch (error) {
       console.error("Erro ao buscar pessoas:", error);
     }
@@ -99,7 +99,6 @@ export const PessoaProvider = ({ children }) => {
       });
       getPessoas();
       router.push("/pessoas");
-      limparForm();
       setFormData({});
       setErrors({});
       F;
@@ -112,10 +111,15 @@ export const PessoaProvider = ({ children }) => {
     }
   };
 
-  const deletarPessoa = async (id) => {
+  const deletarPessoa = async (e) => {
+    e.preventDefault();
     try {
-      axios.delete(`/pessoas/` + id);
+      await api.delete(`/pessoas/` + pessoa.id);
+      console.log(pessoa.id);
       getPessoas();
+      router.push("/pessoas");
+      setFormData({});
+      setErrors({});
     } catch (error) {
       console.error("Erro ao deletar pessoa:", error);
     }

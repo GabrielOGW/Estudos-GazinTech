@@ -93,7 +93,7 @@ export default function editarPessoa() {
             Atualizar
           </button>
           <Link
-            href="../pessoas"
+            href="../"
             className="font-medium text-red-600 dark:text-red-500 hover:underline"
           >
             Cancelar
