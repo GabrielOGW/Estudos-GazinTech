@@ -23,7 +23,7 @@ class SavePessoaRequest extends FormRequest
     {
         return [
             'nome' => ['required', 'min:3', 'max:50'],
-            'email' => ['required', 'email', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:pessoas,email'],
             'data_nascimento' => ['required', 'date'],
             'idade' => ['required', 'integer', 'min:0'],
             'cargo' => ['required', 'string', 'max:255'],
@@ -44,6 +44,7 @@ class SavePessoaRequest extends FormRequest
             'email.required' => 'O campo email é obrigatório.',
             'email.email' => 'O campo email deve ser um endereço de e-mail válido.',
             'email.max' => 'O campo email não deve ter mais de 255 caracteres.',
+            'email.unique' => 'Este endereço de e-mail já está em uso.',
             'data_nascimento.required' => 'O campo data de nascimento é obrigatório.',
             'data_nascimento.date' => 'O campo data de nascimento deve ser uma data válida.',
             'idade.required' => 'O campo idade é obrigatório.',
