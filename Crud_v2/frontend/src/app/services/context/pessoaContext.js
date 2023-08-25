@@ -154,7 +154,6 @@ export const PessoaProvider = ({ children }) => {
       );
       setSelectedIds([]);
       getPessoas();
-      router.push("/pessoas");
     } catch (error) {
       console.error("Erro ao excluir pessoas:", error);
     }

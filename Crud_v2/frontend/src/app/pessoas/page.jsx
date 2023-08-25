@@ -2,10 +2,12 @@
 import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import { PessoaContext } from "../services/context/pessoaContext";
+import ConfirmationModal from "../components/confirmationModal";
 
 export default function pessoas() {
   const { pessoas, getPessoas, deletarPessoasSelecionadas, toggleSelectAll, toggleSelect, selectedIds, selectAll } = useContext(PessoaContext);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const itemsPerPage = 5;
 
   useEffect(() => {
@@ -29,22 +31,34 @@ export default function pessoas() {
     }
   };
 
+  const openConfirmationModal = () => {
+    setIsConfirmationModalOpen(true);
+  };
+
+  const closeConfirmationModal = () => {
+    setIsConfirmationModalOpen(false);
+  };
+
+  const handleDeleteSelected = () => {
+    openConfirmationModal();
+  };
+
   return (
     <>
       <div className="flex justify-end m-2 p-2">
         {selectedIds.length > 0 && (
           <button
-            onClick={() => deletarPessoasSelecionadas(selectedIds)}
+            onClick={() => handleDeleteSelected(selectedIds)}
             className="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md ml-2"
           >
-            Excluir Selecionados
+            Excluir Selecionados &#40;{selectedIds.length}&#41;
           </button>
         )}
         <Link href='/pessoas/criar' className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md ml-2">Adicionar nova pessoa</Link>
       </div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="p-4">
                 <div className="flex items-center">
@@ -126,16 +140,16 @@ export default function pessoas() {
           </tbody>
         </table>
         <nav
-          className="flex items-center justify-between pt-4"
+          className="flex items-center justify-between pt-4 dark:bg-gray-700"
           aria-label="Table navigation"
         >
           <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
             Apresentando{" "}
-            <span className="font-semibold text-gray-900 dark:text-white">
+            <span className="font-semibold text-white">
               {startIndex + 1}-{endIndex > pessoas.length ? pessoas.length : endIndex}
             </span>{" "}
             de{" "}
-            <span className="font-semibold text-gray-900 dark:text-white">
+            <span className="font-semibold text-white">
               {pessoas.length}
             </span>
           </span>
@@ -161,5 +175,13 @@ export default function pessoas() {
           </ul>
         </nav>
       </div>
+      <ConfirmationModal
+        isOpen={isConfirmationModalOpen}
+        onClose={closeConfirmationModal}
+        onConfirm={() => {
+          deletarPessoasSelecionadas(selectedIds);
+          closeConfirmationModal();
+        }}
+      />
     </>);
 }
