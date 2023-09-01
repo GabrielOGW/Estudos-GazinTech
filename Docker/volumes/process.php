@@ -2,7 +2,7 @@
 $message = $_POST["message"];
 
 $files = scandir('./messages');
-$num_files = count($files);
+$num_files = count($files) - 2;
 
 $fileName = "msg-{$num_files}.txt";
 
