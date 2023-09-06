@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+
+  frontend:
+    container_name: frontend_crud
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
