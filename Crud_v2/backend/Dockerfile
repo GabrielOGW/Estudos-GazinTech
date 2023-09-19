@@ -1,29 +1,9 @@
-FROM composer:1.10 AS composer
-
-COPY composer.json /app
-COPY composer.lock /app
-
-RUN composer install        \
-  --ignore-platform-reqs  \
-  --no-ansi               \
-  --no-autoloader         \
-  --no-interaction        \
-  --no-scripts
-  
-RUN composer update ramsey/uuid
-
-
-COPY . /app/
-RUN composer dump-autoload --optimize --classmap-authoritative
-
-FROM php:8.1
+FROM php:8.1.0-apache
 
 WORKDIR /var/www/html
 
-RUN docker-php-ext-install pdo pdo_mysql
+RUN a2enmod rewrite
 
-COPY . .
+COPY --from=composer:latest usr/bin/composer /usr/bin/composer
 
-EXPOSE 8000
-
-CMD ["php", "artisan", "serve"]
+RUN docker-php-ext-install pdo_mysql

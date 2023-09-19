@@ -1,6 +1,5 @@
-version: "3.7"
-
 services:
+
   frontend:
     container_name: frontend_crud
     build:
@@ -9,26 +8,34 @@ services:
     restart: always
     ports:
       - "3000:3000"
-
   backend:
-    container_name: backend_crud
+    container_name: laravel-backend
     build:
       context: ./backend
       dockerfile: ./Dockerfile
-    restart: always
+    volumes:
+      - ./backend:/var/www/html
     ports:
-      - "8000:8000"
-    depends_on:
-      - db
+      - 8080:80
+    environment:
+      DB_HOST: localhost
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: ''
+      DB_DATABASE: backend
 
-  db:
-    container_name: database_crud
+  mysql:
     image: mysql:latest
-    restart: always
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_USER: "root"
       MYSQL_PASSWORD: ""
       MYSQL_DATABASE: backend
     ports:
-      - "3306:3306"
+      - 3306:3306
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    ports:
+      - 8001:80
+    environment:
+      - PMA_ARBITRARY=1
