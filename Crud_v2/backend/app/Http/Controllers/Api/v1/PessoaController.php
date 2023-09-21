@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SavePessoaRequest;
 use App\Http\Resources\v1\PessoaCollection;
 use App\Http\Resources\v1\PessoaResource;
-use App\Models\Pessoa as PessoaModel;
-use Illuminate\Http\Request;
+use App\Models\PessoaModel;
 
-class Pessoa extends Controller
+class PessoaController extends Controller
 {
     public function index()
     {
