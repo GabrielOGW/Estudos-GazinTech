@@ -32,19 +32,28 @@ Certifique-se de ter os seguintes requisitos instalados em sua máquina antes de
 3.  Execute o seguinte comando para iniciar o projeto usando Docker Compose:
 
     ```
-    docker-compose up --build
+    docker-compose up -d --build
     ```
     Isso iniciará os contêineres necessários para o frontend, backend e banco de dados MySQL.
 
 4.  O frontend estará acessível em [http://localhost:3000](http://localhost:3000) e o backend estará acessível em [http://localhost:8000](http://localhost:8000), porém o backend ainda precisará de algumas configurações adicionais nos passos: 
 
+    - [Instalando Dependencias](#Instalando-Dependencias)
     - [Configurando a Chave de Criptografia](#configurando-a-chave-de-criptografia)
     - [Atualizando o Arquivo `.env.example`](#atualizando-o-arquivo-envexample)
     - [Executando as Migrações do Banco de Dados](#executando-as-migrações-do-banco-de-dados)
 
+### Instalando Dependencias
+
+No terminal execute o seguinte comando para gerar a chave de criptografia do Laravel e exibi-la:
+
+  ```
+  docker exec -it laravel-backend composer install
+  ```
+
 ### Configurando a Chave de Criptografia
 
-Em outro terminal, execute o seguinte comando para gerar a chave de criptografia do Laravel e exibi-la:
+Em seguida execute o seguinte comando para gerar a chave de criptografia do Laravel e exibi-la:
 
   ```
   docker exec -it laravel-backend php artisan key:generate --show

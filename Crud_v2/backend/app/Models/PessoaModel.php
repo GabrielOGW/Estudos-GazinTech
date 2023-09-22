@@ -7,6 +7,7 @@ use Carbon\Carbon;
 
 class PessoaModel extends Model
 {
+    protected $table = 'pessoas';
     protected $fillable = ['nome', 'email', 'data_nascimento', 'idade', 'cargo'];
     public function getDataNascimentoAttribute($value)
     {
